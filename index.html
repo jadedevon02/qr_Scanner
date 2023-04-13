@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link 
     <title>CD QR SCANNER</title>
   </head>
   <body>
@@ -80,7 +81,7 @@
            * { id: "id", label: "label" }
            */
           if (devices && devices.length) {
-            var cameraId = devices[2].id;
+            var cameraId = devices[0].id;
             html5QrCode
               .start(
                 cameraId,
