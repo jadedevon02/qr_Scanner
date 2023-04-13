@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CD QR SCANNER</title>
+  </head>
+  <body>
+    <div class="cdlogo">
+      <img src="codebyters-logo.png" alt="Codebyters Logo" />
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js"
+      integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <style>
+      body{
+        background-color: #181a20;
+      }
+      .cdlogo {
+        display: flex;
+        justify-content: center;
+        height: 70px;
+        margin-bottom: 15px;
+        margin-top: 10px;
+      }
+      p {
+        display: flex;
+        justify-content: center;
+        color: white;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+     
+      #reader {
+        width: 500px;
+      }
+      #result {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+    </style>
+    <main>
+      <div id="reader">
+      
+      </div>
+      <div id="result"></div>
+    </main>
+    <script>
+      // const scanner = new Html5QrcodeScanner('reader', {
+      // qrbox: {
+      //     width: 250,
+      //     height: 250,
+      //     },
+      //     fps: 20,
+      // });
+      // scanner.render(success, error);
+      // function success(result) {
+      //     document.getElementById('result').innerHTML = `
+      //     <h2>QR CODE SCANNED!</h2>
+      //     <p><a href="${result}">${result}</a></p>
+      //     `;
+      //     scanner.clear();
+      //     document.getElementById('reader').remove();
+      // }
+      // function error(err) {
+      //     console.error(err);
+      // }
+      const html5QrCode = new Html5Qrcode(/* element id */ "reader");
+      Html5Qrcode.getCameras()
+        .then((devices) => {
+          /**
+           * devices would be an array of objects of type:
+           * { id: "id", label: "label" }
+           */
+          if (devices && devices.length) {
+            var cameraId = devices[0].id;
+            html5QrCode
+              .start(
+                cameraId,
+                {
+                  fps: 10, // Optional, frame per seconds for qr code scanning
+                  qrbox: { width: 250, height: 250 }, // Optional, if you want bounded box UI
+                },
+                (decodedText, decodedResult) => {
+                  // do something when code is read
+                  
+                },
+                (errorMessage) => {
+                  // parse error, ignore it.
+                }
+              )
+              .catch((err) => {
+                // Start failed, handle it.
+              });
+          }
+        })
+        .catch((err) => {
+          // handle err
+        });
+    </script>
+
+    <p>Powered by JadeDaks</p>
+  </body>
+</html>
